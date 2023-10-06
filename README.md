@@ -7,6 +7,8 @@ Semester 5 - B.Tech Computer Science Engineering , CUSAT
 ### - [s5-cs-pyq](/pyq.md)
 ### - [s5-cs-notes](https://drive.google.com/drive/folders/1cIOt9X18JW4wO2gg8vtCluGjWqra9GBJ)
 
+![Meh](https://raw.githubusercontent.com/nlkguy/cusat-cs-s5/main/pyq/s5-subs.png )
+
 ```
 /*
  * ----------------------------------------------------------------------------
