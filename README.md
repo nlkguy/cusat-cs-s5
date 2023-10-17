@@ -1,11 +1,16 @@
 # cusat-cs-s5
 Semester 5 - B.Tech Computer Science Engineering , CUSAT 
+2019 Admissions Scheme
+
 
 
 
 ### - [s5-cs-books](https://drive.google.com/drive/folders/1NT4VqqmPlXIYCe0Dpjtj5X5J-IPFBHXo?usp=drive_link)
 ### - [s5-cs-pyq](/pyq.md)
 ### - [s5-cs-notes](https://drive.google.com/drive/folders/1cIOt9X18JW4wO2gg8vtCluGjWqra9GBJ)
+
+### - [s5 - aparna - notes](https://drive.google.com/drive/folders/1BPJBYSbZFVhIn_AQ818Yd_of1aNZJi1r) <-- this one got more content
+
 
 ![Meh](https://raw.githubusercontent.com/nlkguy/cusat-cs-s5/main/pyq/s5-subs.png )
 
