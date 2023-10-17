@@ -11,7 +11,7 @@
 |19-200-0503|OOSE - the hispanic subject |[:open_file_folder:](/pyq/OOSE )|
 |19-200-0504|CG - not the bahubali kind|[:open_file_folder:](/pyq/CG )|
 |19-200-0505|AMM - not the crypto kind|[:open_file_folder:](/pyq/AMM/ )|
-|19-200-0507|ML - garbage in garbage out|[:open_file_folder:](/pyq/ML )|
+|19-200-0507|ML - garbage in (garbage)' out|[:open_file_folder:](/pyq/ML )|
 |19-200-0510|CG-LAB|[:open_file_folder:](/pyq/ )|
 |19-200-0511|MP-LAB|[:open_file_folder:](/pyq/ )|
 
