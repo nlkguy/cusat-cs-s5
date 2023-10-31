@@ -1,70 +1,60 @@
-# Python3 program for implementing 
-# Mid-Point Ellipse Drawing Algorithm 
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
 
-def midptellipse(rx, ry, xc, yc): 
+def init():
+    glutInit(sys.argv)
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
+    glutInitWindowSize(500, 500)
+    glutCreateWindow(b"Midpoint Ellipse Algorithm")
+    glClearColor(0.0, 0.0, 0.0, 0.0)
+    gluOrtho2D(-250, 250, -250, 250)
 
-	x = 0; 
-	y = ry; 
+def plot_points(x, y, xc, yc):
+    glBegin(GL_POINTS)
+    glVertex2f(xc + x, yc + y)
+    glVertex2f(xc - x, yc + y)
+    glVertex2f(xc + x, yc - y)
+    glVertex2f(xc - x, yc - y)
+    glEnd()
 
-	# Initial decision parameter of region 1 
-	d1 = ((ry * ry) - (rx * rx * ry) +
-					(0.25 * rx * rx)); 
-	dx = 2 * ry * ry * x; 
-	dy = 2 * rx * rx * y; 
+def midpoint_ellipse(a, b, xc, yc):
+    x = 0
+    y = b
+    p = (b * b) - (a * a) * b + 0.25 * (a * a)
 
-	# For region 1 
-	while (dx < dy): 
+    plot_points(x, y, xc, yc)
 
-		# Print points based on 4-way symmetry 
-		print("(", x + xc, ",", y + yc, ")"); 
-		print("(",-x + xc,",", y + yc, ")");
-		print("(",x + xc,",", -y + yc ,")"); 
-		print("(",-x + xc, ",", -y + yc, ")"); 
+    while (2.0 * (b * b) * x) < (2.0 * (a * a) * y):
+        x += 1
+        if p < 0:
+            p += (b * b) * (2 * x + 1)
+        else:
+            y -= 1
+            p += (b * b) * (2 * x + 1) - (a * a) * (2 * y - 1)
+        plot_points(x, y, xc, yc)
 
-		# Checking and updating value of 
-		# decision parameter based on algorithm 
-		if (d1 < 0): 
-			x += 1; 
-			dx = dx + (2 * ry * ry); 
-			d1 = d1 + dx + (ry * ry); 
-		else:
-			x += 1; 
-			y -= 1; 
-			dx = dx + (2 * ry * ry); 
-			dy = dy - (2 * rx * rx); 
-			d1 = d1 + dx - dy + (ry * ry); 
+    p = (b * b) * (x + 0.5) ** 2 + (a * a) * (y - 1) ** 2 - (a * a) * (b * b)
 
-	# Decision parameter of region 2 
-	d2 = (((ry * ry) * ((x + 0.5) * (x + 0.5))) +
-		((rx * rx) * ((y - 1) * (y - 1))) -
-		(rx * rx * ry * ry)); 
+    while y > 0:
+        y -= 1
+        if p > 0:
+            p += (a * a) * (1 - 2 * y)
+        else:
+            x += 1
+            p += (b * b) * (2 * x + 1) + (a * a) * (1 - 2 * y)
+        plot_points(x, y, xc, yc)
 
-	# Plotting points of region 2 
-	while (y >= 0):
+def display():
+    glClear(GL_COLOR_BUFFER_BIT)
+    glColor3f(1.0, 1.0, 1.0)
+    midpoint_ellipse(150, 100, 0, 0) # rx,xy,xc,yc
+    glFlush()
 
-		# printing points based on 4-way symmetry 
-		print("(", x + xc, ",", y + yc, ")"); 
-		print("(", -x + xc, ",", y + yc, ")"); 
-		print("(", x + xc, ",", -y + yc, ")"); 
-		print("(", -x + xc, ",", -y + yc, ")"); 
+def main():
+    glutInit(sys.argv)
+    init()
+    glutDisplayFunc(display)
+    glutMainLoop()
 
-		# Checking and updating parameter 
-		# value based on algorithm 
-		if (d2 > 0):
-			y -= 1; 
-			dy = dy - (2 * rx * rx); 
-			d2 = d2 + (rx * rx) - dy; 
-		else:
-			y -= 1; 
-			x += 1; 
-			dx = dx + (2 * ry * ry); 
-			dy = dy - (2 * rx * rx); 
-			d2 = d2 + dx - dy + (rx * rx); 
-
-# Driver code 
-
-# To draw a ellipse of major and 
-# minor radius 15, 10 centered at (50, 50) 
-midptellipse(10, 15, 50, 50); 
-
-# This code is contributed by chandan_jnu
+main()
