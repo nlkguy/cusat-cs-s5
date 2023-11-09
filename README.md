@@ -2,7 +2,8 @@
 Semester 5 - B.Tech Computer Science Engineering , CUSAT 
 2019 Admissions Scheme
 
-
+## Proposal [see issue no #]
+proposal for a **study material framework** . defining and devising formats and guidelines on how study materials should be gathered , sorted and published. it needs to be expandable , easy to understand and easy to contribute .etc
 
 
 ### - [s5-cs-books](https://drive.google.com/drive/folders/1NT4VqqmPlXIYCe0Dpjtj5X5J-IPFBHXo?usp=drive_link)
