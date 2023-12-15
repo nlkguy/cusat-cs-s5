@@ -9,9 +9,9 @@ tx = 1
 ty = 1
 timer = 1
 waterlvl = 1
-stonelvl = 0
-stone2lvl = 0
-stone3lvl = 0
+stonelvl = 300
+stone2lvl = 300
+stone3lvl = 300
 
 stoneradius = 50
 stone2radius = 50
@@ -147,14 +147,11 @@ def animate(temp):
     if(timer>80 and waterlvl<300):
         waterlvl+=5
         stone2lvl-=100
-    if(timer>120 and waterlvl<500):
+    if(timer>120 and waterlvl<500 and timer<190 ):
         waterlvl+=5
-        stone3lvl-=10
-        stone2lvl-=10
+        stone3lvl-=50
+        stone2lvl-=50
     
-
-    if(waterlvl>450 and timer<140):
-        ty+=10
 
     if(stonelvl==-400):
         stonelvl=0
@@ -168,7 +165,10 @@ def animate(temp):
         stone3lvl=0
         stone3radius=0
 
-
+    if(timer<175 and timer>140):
+        ty+=10
+    if(timer>174 and timer<190):
+        waterlvl-=10
 def drawWaterPipe():
     glClear(GL_COLOR_BUFFER_BIT)
     crow()
