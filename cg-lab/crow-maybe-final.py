@@ -17,6 +17,25 @@ stoneradius = 50
 stone2radius = 50
 stone3radius = 50
     
+def grid(WINDOWSIZE=1000,offset=100):
+    glColor3f(0.5,0.5,0.5)
+    glLineWidth(1)
+    glBegin(GL_LINES)
+
+    
+    for i in range(0,WINDOWSIZE,offset):
+        glVertex2f(0+i,WINDOWSIZE)
+        glVertex2f(0+i,-WINDOWSIZE)
+        glVertex2f(0-i,WINDOWSIZE)
+        glVertex2f(0-i,-WINDOWSIZE)
+        glVertex2f(WINDOWSIZE,0+i)
+        glVertex2f(-WINDOWSIZE,0+i)
+        glVertex2f(WINDOWSIZE,0-i)
+        glVertex2f(-WINDOWSIZE,0-i)
+
+
+    glEnd()
+
 def bowl():
     glColor3f(0.5,0.5,0.5)
     glLineWidth(7)
@@ -171,6 +190,7 @@ def animate(temp):
         waterlvl-=10
 def drawWaterPipe():
     glClear(GL_COLOR_BUFFER_BIT)
+    grid()
     crow()
     bowl()
     fillhalf()
