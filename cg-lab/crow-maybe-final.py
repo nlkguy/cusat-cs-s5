@@ -22,7 +22,6 @@ def grid(WINDOWSIZE=1000,offset=100):
     glLineWidth(1)
     glBegin(GL_LINES)
 
-    
     for i in range(0,WINDOWSIZE,offset):
         glVertex2f(0+i,WINDOWSIZE)
         glVertex2f(0+i,-WINDOWSIZE)
@@ -32,7 +31,6 @@ def grid(WINDOWSIZE=1000,offset=100):
         glVertex2f(-WINDOWSIZE,0+i)
         glVertex2f(WINDOWSIZE,0-i)
         glVertex2f(-WINDOWSIZE,0-i)
-
 
     glEnd()
 
@@ -188,7 +186,7 @@ def animate(temp):
         ty+=10
     if(timer>174 and timer<190):
         waterlvl-=10
-def drawWaterPipe():
+def drawFunction():
     glClear(GL_COLOR_BUFFER_BIT)
     grid()
     crow()
@@ -208,10 +206,10 @@ def main():
     glutInitDisplayMode(GLUT_RGBA)
     glutCreateWindow("anime tion")
 
-    glutDisplayFunc(drawWaterPipe)
+    glutDisplayFunc(drawFunction)
     glutTimerFunc(0,animate,0)
     
-    glutIdleFunc(drawWaterPipe)
+    glutIdleFunc(drawFunction)
 
     glClearColor(0.0,0.0,0.0,0.0)
     gluOrtho2D(-WINDOWSIZE,WINDOWSIZE,-WINDOWSIZE,WINDOWSIZE)
