@@ -11,9 +11,9 @@ appleX , appleY , appleR = 0,0,50
 eaten = False # F - not eaten, T - eaten
 
 
-snakeX,snakeY = 0,0 # snake coordinates
-snakeSeg = 1 # number of segments of snake
-snakeSize   
+snakeX,snakeY = -900,-900 # snake coordinates
+snakeSegm = 1 # number of segments of snake
+snakeSize = 50 # snake size
 
 """
     - random apple(a single lonely one) appear on screen in (appleX,appleY) coordinates
@@ -40,14 +40,14 @@ def grid(WINDOWSIZE=1000,offset=100):
 
     glEnd()
 
-
 def apple_coordinates():
-    global appleX,appleY
+    global appleX,appleY,eaten
     # get random apple coordinates
     # getting a random x,y between -900 and +900
     appleX = random.randint(-9, 9) * 100
     appleY = random.randint(-9, 9) * 100
     print(f"random apple coords ({appleX},{appleY})")
+    eaten = False
 
 def apple_putter():
     #put apple in the coordinates 
@@ -59,9 +59,17 @@ def apple_putter():
         glVertex2f(appleR*math.cos(math.pi*i/180)+appleX,
                    appleR*math.sin(math.pi*i/180)+appleY)
     glEnd()
+    print(f"put apple at ({appleX},{appleY})")
 
 
 
+def snake():
+    glColor3f(0.1,1,1) #magenta? violet? idk 
+    glPointSize(snakeSize)
+    glBegin(GL_POINTS)
+    print(f"snake at ({snakeX},{snakeY})")
+    glVertex2f(snakeX,snakeY)
+    glEnd()
 
 
 
@@ -70,6 +78,9 @@ def animate(temp):
 
     global timer
     global appleX,appleY,appleR,eaten
+    global snakeX,snakeY,snakeSegm,snakeSize
+
+    
 
     glutPostRedisplay()
     glutTimerFunc(int(5000/60),animate,int(0))
@@ -77,9 +88,22 @@ def animate(temp):
     timer+=1
     print(timer)
 
+    
+
     if eaten:
         apple_coordinates()
     
+    if snakeX<appleX:
+        snakeX+=100
+    elif snakeX>appleX:
+        snakeX-=100
+    elif snakeX==appleX:
+        if snakeY<appleY:
+            snakeY+=100
+        elif snakeY>appleY:
+            snakeY-=100
+        elif snakeY==appleY:
+            eaten = True
 
     
 
@@ -88,6 +112,7 @@ def drawFunction():
     glClear(GL_COLOR_BUFFER_BIT)
     grid()
     apple_putter()
+    snake()
 
     glutSwapBuffers()
 
