@@ -12,7 +12,7 @@ eaten = False # F - not eaten, T - eaten
 
 
 snakeX,snakeY = -900,-900 # snake coordinates
-snakeSegm = 1 # number of segments of snake
+snakeSegCount = 1 # number of segments of snake
 snakeSize = 50 # snake size
 
 """
@@ -59,7 +59,7 @@ def apple_putter():
         glVertex2f(appleR*math.cos(math.pi*i/180)+appleX,
                    appleR*math.sin(math.pi*i/180)+appleY)
     glEnd()
-    print(f"put apple at ({appleX},{appleY})")
+    print(f"put-ed apple at ({appleX},{appleY})")
 
 
 
@@ -70,6 +70,13 @@ def snake():
     print(f"snake at ({snakeX},{snakeY})")
     glVertex2f(snakeX,snakeY)
     glEnd()
+    for i in range(1,snakeSegCount):
+        glColor3f(0.1,1,0) #magenta? violet? idk 
+        glPointSize(snakeSize)
+        glBegin(GL_POINTS)
+        print(f"snake at ({snakeX},{snakeY})")
+        glVertex2f(snakeX-(i*110),snakeY)
+        glEnd()
 
 
 
@@ -78,7 +85,7 @@ def animate(temp):
 
     global timer
     global appleX,appleY,appleR,eaten
-    global snakeX,snakeY,snakeSegm,snakeSize
+    global snakeX,snakeY,snakeSegCount,snakeSize
 
     
 
@@ -104,6 +111,10 @@ def animate(temp):
             snakeY-=100
         elif snakeY==appleY:
             eaten = True
+            snakeSegCount+=1
+            print(f"snake segment count ({snakeSegCount})")
+
+
 
     
 
