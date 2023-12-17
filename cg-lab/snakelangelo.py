@@ -70,6 +70,7 @@ def snake():
     print(f"snake at ({snakeX},{snakeY})")
     glVertex2f(snakeX,snakeY)
     glEnd()
+    
     for i in range(1,snakeSegCount):
         glColor3f(0.1,1,0) #magenta? violet? idk 
         glPointSize(snakeSize)
