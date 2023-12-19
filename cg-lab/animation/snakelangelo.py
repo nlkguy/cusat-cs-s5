@@ -43,8 +43,6 @@ direction = 0 # snake direction
                         -----------------
 """
 
-
-
     
 def grid(WINDOWSIZE=1000,offset=100):
     glColor3f(0.5,0.5,0.5)
@@ -146,7 +144,7 @@ def animate(temp):
     
 
     glutPostRedisplay()
-    glutTimerFunc(int(50000/60),animate,int(0))
+    glutTimerFunc(int(10000/60),animate,int(0))
 
     timer+=1
     print(timer)
