@@ -1,19 +1,19 @@
+#lekshmeeka p a
+#
 from OpenGL.GL import *
-from OpenGL.GLU import * # Utility Library
-from OpenGL.GLUT import * # Utility Toolkit
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+from queue import Queue
+import numpy as np
 
-import sys
-sys.setrecursionlimit(100000)
-
-x,y = 0,0 # mouse coordinates
-ws= 500
+x = 0
+y = 0
+ws = 500
 point_size = 2
 
-
 def get_pixel(x, y):
-    pixel = glReadPixels(x, ws -y, 1, 1, GL_RGB, GL_FLOAT)
+    pixel = glReadPixels(x, ws - y, 1, 1, GL_RGB, GL_FLOAT)
     return pixel[0][0]
-
 
 def set_pixel(x, y, fill_color=(0, 0, 0)):
     glColor3f(*fill_color)
@@ -23,7 +23,6 @@ def set_pixel(x, y, fill_color=(0, 0, 0)):
     glEnd()
     glFlush()
 
-
 def rectangle(vertices, color):
     glColor3f(color[0], color[1], color[2])
     glBegin(GL_POLYGON)
@@ -31,13 +30,12 @@ def rectangle(vertices, color):
         glVertex2f(*vertex)
     glEnd()
 
-
 def plot_rect():
     glClear(GL_COLOR_BUFFER_BIT)
     gluOrtho2D(0, ws, ws, 0)
-    
-    square_center = [ws / 2, ws / 2] 
-    square_size = 200  
+
+    square_center = [ws / 2, ws / 2]
+    square_size = 200
 
     square_vertices = [
         [square_center[0] - square_size / 2, square_center[1] - square_size / 2],
@@ -45,35 +43,35 @@ def plot_rect():
         [square_center[0] + square_size / 2, square_center[1] + square_size / 2],
         [square_center[0] + square_size / 2, square_center[1] - square_size / 2]
     ]
-    
-    rectangle(square_vertices, [1, 1, 0])
-    
+
+    rectangle(square_vertices, [1, 0, 0])
+
     glFlush()
 
-
-
 def flood_fill(x, y, new_color, old_color):
-    color = get_pixel(x, y)
-    if all(color == old_color):
-        set_pixel(x, y, new_color)
-        flood_fill(x + point_size, y, new_color, old_color)
-        flood_fill(x, y + point_size, new_color, old_color)
-        flood_fill(x - point_size, y, new_color, old_color)
-        flood_fill(x, y - point_size, new_color, old_color)
+    if np.all(new_color == old_color) or not np.all(get_pixel(x, y) == old_color):
+        return
 
+    queue = Queue()
+    queue.put((x, y))
+
+    while not queue.empty():
+        current_x, current_y = queue.get()
+        if np.all(get_pixel(current_x, current_y) == old_color):
+            set_pixel(current_x, current_y, new_color)
+            queue.put((current_x + point_size, current_y))
+            queue.put((current_x, current_y + point_size))
+            queue.put((current_x - point_size, current_y))
+            queue.put((current_x, current_y - point_size))
 
 def mouse_click(button, state, x, y):
     if button == GLUT_LEFT_BUTTON and state == GLUT_DOWN:
-        flood_fill(x, y, [0, 1, 1], get_pixel(x, y))
-
-
-
+        flood_fill(x, y, [0, 0, 1], get_pixel(x, y))
 
 glutInit()
 glutInitWindowSize(ws, ws)
-glutCreateWindow("fahad fasil")
+glutCreateWindow("flood fill")
 glutDisplayFunc(plot_rect)
 glutMouseFunc(mouse_click)
 glutMainLoop()
-
 

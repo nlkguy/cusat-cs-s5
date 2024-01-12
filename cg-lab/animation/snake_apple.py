@@ -1,29 +1,19 @@
+	#Rahul R
+	# Roll no 96
+
+	#Animation
+
 from OpenGL.GL import*
 from OpenGL.GLU import*
 from OpenGL.GLUT import*
 import math , random
-"""
-    - random apple(a single lonely one) appear on screen in (appleX,appleY) coordinates
-    - snake boi is in an arbitrary position (snakeX,snakeY) coordinates
-    - function finds a way to go eat the apple
-    - no.of segments in the snake increase
-    - new apple (still single and lonely) appears
-"""
+
 WINDOWSIZE=1000 # window size 
 timer = 1 # reference timer
 
 appleX , appleY , appleR = 0,0,50
 eaten = False # F - not eaten, T - eaten
 
-"""
-    ------ ------
-    |     |     |
-    |  2  |  1  |
-    ------ ------
-    |     |     |
-    |  3  |  4  |
-    ------ ------
-"""
 SnakeQuadrant = 1
 appleQuadrant = 1
 
@@ -33,15 +23,6 @@ tailX,tailY = 0,0 # tail coordinates
 snakeSegCount = 1 # number of segments of snake
 snakeSize = 50 # snake size
 direction = 0 # snake direction
-"""
-                              -----
-1 - Up                        |   |
-2 - Down                      | 1 |
-                        -----------------
-3 - Right               |   | |   | |   |
-4 - Left                | 4 | | 2 | | 3 |
-                        -----------------
-"""
 
     
 def grid(WINDOWSIZE=1000,offset=100):
@@ -113,7 +94,7 @@ def snake():
     glEnd()
     tailX=snakeX
     tailY=snakeY 
-    
+
     for i in range(1,snakeSegCount):
         glColor3f(0.1,1,0) #magenta? violet? idk 
         glPointSize(snakeSize)
@@ -129,7 +110,6 @@ def snake():
         elif direction == 4:
             glVertex2f(tailX+(i*110),tailY)
         glEnd()
-
 
 
 
@@ -200,7 +180,7 @@ def main():
     glutInit(sys.argv)
     glutInitWindowSize(WINDOWSIZE,WINDOWSIZE)
     glutInitDisplayMode(GLUT_RGBA)
-    glutCreateWindow("Hungry Snake")
+    glutCreateWindow("Snake Animation")
 
     glutDisplayFunc(drawFunction)
     glutTimerFunc(0,animate,0)

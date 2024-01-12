@@ -1,17 +1,43 @@
 #1. Quadrilateral printing
 
 import math
-import time
+import time,sys
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-X = 0
-Y = 0
-side = int(input("side length : "))
 
-def init():
-	glClearColor(0,0,0,1)
-	gluOrtho2D(-300,300,-300,300)
+sys.setrecursionlimit(10000)
+
+WS = 900
+
+X = 200
+Y = 200
+side = 300
+x,y=0,0
+p = 2
+
+def getpixel(x,y):
+	return glReadPixels(x,y,1,1,GL_RGB,GL_FLOAT,None)[0][0]
+
+def setpixel(x,y,fillcolor):
+	glColor3f(*fillcolor)
+	glPointSize(p)
+	glBegin(GL_POINTS)
+	glVertex2f(x,y)
+	glEnd()
+	glFlush()
+
+def floodfill(x,y,fillcolor,oldcolor):
+	current_color = getpixel(x,y)
+	if all (current_color == oldcolor):
+		setpixel(x,y,fillcolor)
+		floodfill(x-p,y,fillcolor,oldcolor)
+		floodfill(x,y-p,fillcolor,oldcolor)
+		floodfill(x,y+p,fillcolor,oldcolor)
+		floodfill(x+p,y,fillcolor,oldcolor)
+
+
+
 def draw():
 	glClear(GL_COLOR_BUFFER_BIT)
 	glColor3f(1,1,1)
@@ -22,21 +48,21 @@ def draw():
 	glVertex2f(X+side,Y+side)
 	glVertex2f(X,Y+side)
 	glEnd()
+	floodfill(300,300,[1,0,1],[1,1,1])
 	glutSwapBuffers()
 
 
 def main():
 	glutInit(sys.argv)
 	glutInitDisplayMode(GLUT_RGBA)
-	glutInitWindowSize(500,500)
+	glutInitWindowSize(WS,WS)
 	glutInitWindowPosition(1000,0)
 	glutCreateWindow("SAMPLE")
-	glutDisplayFunc(lambda: draw())
+	glutDisplayFunc(draw)
 
-	init()
+	glClearColor(0,0,0,1)
+	gluOrtho2D(0,WS,0,WS)
 	glutMainLoop()
 	
 	
-if __name__ == "__main__":
-    main()
-
+main()

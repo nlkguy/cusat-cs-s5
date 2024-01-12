@@ -29,7 +29,8 @@ start:
       lea dx,m1
       mov ah,09h
       int 21h
-       
+      
+      lea si,str1
       loop0:mov ah,01h
            int 21h
            cmp al,13
